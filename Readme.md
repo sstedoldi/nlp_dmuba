@@ -69,7 +69,11 @@ Este trabajo práctico final se centra en explorar el uso de **Large Language Mo
 - Ian Link  
 - Santiago Tedoldi  
 - Tomás Elsesser  
-- Leopoldo Serpa  
+- Leopoldo Serpa
+
+## Hitos
+
+- PPT + Dataset (10/9/2025)
 
 ---
 
@@ -88,6 +92,7 @@ Este trabajo práctico final se centra en explorar el uso de **Large Language Mo
 - Evaluación cuantitativa del valor agregado de dichas *features* en modelos macroeconómicos.  
 - Benchmark detallado entre **LLMs cloud** y **modelos locales**.  
 - Documento final con conclusiones metodológicas y técnicas sobre **LLM-based feature engineering**.  
+
 
 
 
