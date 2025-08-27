@@ -61,7 +61,6 @@ htmlcov/
 *.ipynb~
 
 # === Archivos de datos grandes (no versionar si no es necesario) ===
-*.csv
 *.tsv
 *.parquet
 *.h5
