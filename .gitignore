@@ -1,0 +1,81 @@
+# === Archivos de Python ===
+__pycache__/
+*.py[cod]
+*$py.class
+
+# === Entornos virtuales ===
+.venv/
+venv/
+ENV/
+env/
+.env/
+
+# === Dependencias / Builds ===
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# === Logs y caché ===
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.sql
+*.tar.gz
+*.bak
+
+# === Archivos de configuración local ===
+*.ini
+*.cfg
+*.json
+*.yaml
+*.yml
+
+# === Configuraciones de IDE ===
+.vscode/
+.idea/
+*.swp
+*~
+
+# === Archivos del sistema (Windows / Linux / macOS) ===
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+
+# === Archivos de tests ===
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+htmlcov/
+.cache/
+
+# === Jupyter Notebooks ===
+.ipynb_checkpoints
+*.ipynb~
+
+# === Archivos de datos grandes (no versionar si no es necesario) ===
+*.csv
+*.tsv
+*.parquet
+*.h5
+*.hdf5
+*.pkl
+*.joblib
+*.npy
+*.npz
+
+# === Docker / Contenedores ===
+*.pid
+*.seed
+*.pid.lock
+docker-compose.override.yml
+
+# === Configuración local de WSL ===
+.wslconfig
