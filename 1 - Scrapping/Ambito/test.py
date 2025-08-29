@@ -4,7 +4,7 @@ import pandas as pd
 
 import re
 
-SECCION = "economia"
+SECCION = "politica"
 
 
 def clean_text(text):
@@ -143,7 +143,7 @@ for index in range(1, 1000):
         )
 
         print("=" * 40)
-        print(f"Página: {index}")
+        print(f"Página: {index}, fecha: {noticias[0]['fecha']}")
         print(f"Noticias nuevas: {len(noticias)}")
         print(f"Total acumulado: {len(urls_guardadas)}")
         print("=" * 40)
