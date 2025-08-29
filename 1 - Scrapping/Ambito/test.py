@@ -143,6 +143,7 @@ for index in range(1, 1000):
         )
 
         print("=" * 40)
+        print(f"Página: {index}")
         print(f"Noticias nuevas: {len(noticias)}")
         print(f"Total acumulado: {len(urls_guardadas)}")
         print("=" * 40)
