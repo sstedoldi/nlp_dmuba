@@ -1,10 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
+import os
 import re
 
 SECCION = "politica"
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+parquet_file = os.path.join(script_dir, "noticias_ambito.parquet")
 
 
 def clean_text(text):
@@ -63,11 +66,11 @@ headers = {
 
 
 try:
-    df_url = pd.read_parquet("noticias_ambito.parquet", columns=["url"])
+    df_url = pd.read_parquet(parquet_file, columns=["url"])
     urls_guardadas = set(df_url["url"].values)
 except FileNotFoundError:
     df = pd.DataFrame(columns=["fecha", "titulo", "resumen", "articulo", "url"])
-    df.to_parquet("noticias_ambito.parquet", index=False, engine="fastparquet")
+    df.to_parquet(parquet_file, index=False, engine="fastparquet")
     urls_guardadas = set()
 
 for index in range(1, 1000):
@@ -136,7 +139,7 @@ for index in range(1, 1000):
 
     if noticias:
         pd.DataFrame(noticias).to_parquet(
-            "noticias_ambito.parquet",
+            parquet_file,
             index=False,
             engine="fastparquet",
             append=True,
