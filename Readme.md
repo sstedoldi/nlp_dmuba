@@ -11,7 +11,10 @@ Este trabajo práctico final se centra en explorar el uso de **Large Language Mo
 
 ## Objetivos
 
-- Diseñar un pipeline completo para la recolección y preprocesamiento de noticias de medios digitales.  
+- Diseñar un pipeline completo para la recolección y preprocesamiento de noticias de medios digitales.
+- Periodo de tiempo: 2025-01 a 2025-04
+- Fuentes: ambito (Tomas), clarin (Ian), pagina12 (Euge), infobae (Leo), lanacion (Santi), argentina.gob
+- Campos a scrapper: {Fecha, Titulo, Seccion, Diario, Contenido}  
 - Aplicar LLMs para extraer *features* de alto nivel (sentimiento, embeddings, clasificaciones contextuales).  
 - Integrar dichas *features* en modelos de predicción y compararlas frente a un baseline sin información de LLMs.  
 - Evaluar la eficiencia y trade-offs entre el uso de **LLMs en la nube (GPT-4o mini / GPT-5 nano)**.  
@@ -66,7 +69,11 @@ Este trabajo práctico final se centra en explorar el uso de **Large Language Mo
 - Ian Link  
 - Santiago Tedoldi  
 - Tomás Elsesser  
-- Leopoldo Serpa  
+- Leopoldo Serpa
+
+## Hitos
+
+- PPT + Dataset (10/9/2025)
 
 ---
 
@@ -85,4 +92,7 @@ Este trabajo práctico final se centra en explorar el uso de **Large Language Mo
 - Evaluación cuantitativa del valor agregado de dichas *features* en modelos macroeconómicos.  
 - Benchmark detallado entre **LLMs cloud** y **modelos locales**.  
 - Documento final con conclusiones metodológicas y técnicas sobre **LLM-based feature engineering**.  
+
+
+
 
