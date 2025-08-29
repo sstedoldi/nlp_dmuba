@@ -62,7 +62,7 @@ htmlcov/
 
 # === Archivos de datos grandes (no versionar si no es necesario) ===
 *.tsv
-*.parquet
+.parquet
 *.h5
 *.hdf5
 *.pkl
