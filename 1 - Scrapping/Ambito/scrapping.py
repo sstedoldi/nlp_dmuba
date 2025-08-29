@@ -1,10 +1,25 @@
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
-
 import re
+import shutil
+from datetime import datetime
+from pathlib import Path
 
 SECCION = "politica"
+
+# Guardar backup
+script_dir = Path(__file__).parent
+backup_dir = script_dir / "backups"
+backup_dir.mkdir(exist_ok=True)
+
+parquet_file = script_dir / "noticias_ambito.parquet"
+
+if parquet_file.exists():
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_file = backup_dir / f"noticias_ambito_backup_{timestamp}.parquet"
+    shutil.copy(parquet_file, backup_file)
+    print(f"Backup creado en: {backup_file}")
 
 
 def clean_text(text):
@@ -63,11 +78,12 @@ headers = {
 
 
 try:
-    df_url = pd.read_parquet("noticias_ambito.parquet", columns=["url"])
+    df_url = pd.read_parquet(parquet_file, columns=["url"])
     urls_guardadas = set(df_url["url"].values)
+
 except FileNotFoundError:
     df = pd.DataFrame(columns=["fecha", "titulo", "resumen", "articulo", "url"])
-    df.to_parquet("noticias_ambito.parquet", index=False, engine="fastparquet")
+    df.to_parquet(parquet_file, index=False, engine="fastparquet")
     urls_guardadas = set()
 
 for index in range(1, 1000):
@@ -136,7 +152,7 @@ for index in range(1, 1000):
 
     if noticias:
         pd.DataFrame(noticias).to_parquet(
-            "noticias_ambito.parquet",
+            parquet_file,
             index=False,
             engine="fastparquet",
             append=True,
