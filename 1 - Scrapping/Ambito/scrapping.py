@@ -42,15 +42,6 @@ meses = {
 }
 
 
-def parse_fecha(fecha_str):
-    for mes, num in meses.items():
-        if mes in fecha_str.lower():
-            fecha_str = fecha_str.lower().replace(mes, num)
-            break
-    fecha_str = fecha_str.replace("de ", "").replace("-", "").strip()
-    return pd.to_datetime(fecha_str, format="%d %m %Y %H:%M", errors="coerce")
-
-
 def parse_fecha(fecha):
     if not isinstance(fecha, str):
         return fecha
@@ -64,6 +55,7 @@ def parse_fecha(fecha):
     try:
         return pd.to_datetime(fecha_str, format="%d %m %Y %H:%M")
     except:
+        print(f"Error al parsear la fecha: {fecha}")
         return fecha
 
 
@@ -119,6 +111,9 @@ for index in range(1, 1000):
 
         # 3. Extraer datos
         # Título
+        if soup_nota.find("span", class_="news-headline-lbp__live-badge"):
+            continue
+
         titulo_tag = soup_nota.find("h1", class_="news-headline__title")
         titulo = titulo_tag.get_text(strip=True) if titulo_tag else "No encontrado"
 
