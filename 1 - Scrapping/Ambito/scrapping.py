@@ -1,4 +1,5 @@
-import requests
+import asyncio
+import aiohttp
 from bs4 import BeautifulSoup
 import pandas as pd
 import re
@@ -8,20 +9,8 @@ from pathlib import Path
 
 SECCION = "politica"
 
-# Guardar backup
-script_dir = Path(__file__).parent
-backup_dir = script_dir / "backups"
-backup_dir.mkdir(exist_ok=True)
 
-parquet_file = script_dir / "noticias_ambito.parquet"
-
-if parquet_file.exists():
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_file = backup_dir / f"noticias_ambito_backup_{timestamp}.parquet"
-    shutil.copy(parquet_file, backup_file)
-    print(f"Backup creado en: {backup_file}")
-
-
+# --- Helpers ---
 def clean_text(text):
     return re.sub(r"\s+", " ", text).strip()
 
@@ -68,72 +57,59 @@ headers = {
     "Accept-Language": "es-ES,es;q=0.9,en;q=0.8",
 }
 
+# --- Archivos ---
+script_dir = Path(__file__).parent
+backup_dir = script_dir / "backups"
+backup_dir.mkdir(exist_ok=True)
+
+parquet_file = script_dir / "noticias_ambito.parquet"
+
+if parquet_file.exists():
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_file = backup_dir / f"noticias_ambito_backup_{timestamp}.parquet"
+    shutil.copy(parquet_file, backup_file)
+    print(f"Backup creado en: {backup_file}")
 
 try:
     df_url = pd.read_parquet(parquet_file, columns=["url"])
     urls_guardadas = set(df_url["url"].values)
-
 except FileNotFoundError:
     df = pd.DataFrame(columns=["fecha", "titulo", "resumen", "articulo", "url"])
     df.to_parquet(parquet_file, index=False, engine="fastparquet")
     urls_guardadas = set()
 
-for index in range(1, 1000):
-    url = f"https://www.ambito.com/{SECCION}/{index}"
 
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        raise Exception(f"Error {response.status_code} al solicitar la página.")
+# --- Función async para scrapear una noticia ---
+async def fetch_noticia(session, url_nota):
+    try:
+        async with session.get(url_nota, headers=headers) as resp:
+            if resp.status != 200:
+                return None
 
-    soup = BeautifulSoup(response.text, "html.parser")
-    articulos = soup.find_all("article", class_="news-article")
+            html = await resp.text()
+            soup_nota = BeautifulSoup(html, "html.parser")
 
-    noticias = []
+            # Saltar notas en vivo
+            if soup_nota.find("span", class_="news-headline-lbp__live-badge"):
+                return None
 
-    for art in articulos:
-        a_tag = art.find("a", href=True)
-        if not a_tag:
-            continue
+            titulo_tag = soup_nota.find("h1", class_="news-headline__title")
+            titulo = titulo_tag.get_text(strip=True) if titulo_tag else "No encontrado"
 
-        url_nota = a_tag["href"]
+            fecha_tag = soup_nota.find("span", class_="news-headline__publication-date")
+            fecha = fecha_tag.get_text(strip=True) if fecha_tag else "No encontrada"
 
-        if url_nota in urls_guardadas:
-            print(f"La noticia {url_nota} ya fue procesada.")
-            continue
+            summary_tag = soup_nota.find("h2", class_="news-headline__article-summary")
+            summary = summary_tag.get_text() if summary_tag else "No encontrado"
 
-        # 2. Entrar a cada nota
-        resp_nota = requests.get(url_nota, headers=headers)
-        print(resp_nota)
-        if resp_nota.status_code != 200:
-            continue
+            article_body_tags = soup_nota.find_all("article", class_="article-body")
+            article_body = (
+                " ".join(tag.get_text() for tag in article_body_tags)
+                if article_body_tags
+                else "No encontrado"
+            )
 
-        soup_nota = BeautifulSoup(resp_nota.text, "html.parser")
-
-        # 3. Extraer datos
-        # Título
-        if soup_nota.find("span", class_="news-headline-lbp__live-badge"):
-            continue
-
-        titulo_tag = soup_nota.find("h1", class_="news-headline__title")
-        titulo = titulo_tag.get_text(strip=True) if titulo_tag else "No encontrado"
-
-        # Fecha
-        fecha_tag = soup_nota.find("span", class_="news-headline__publication-date")
-        fecha = fecha_tag.get_text(strip=True) if fecha_tag else "No encontrada"
-
-        # Cuerpo del artículo
-        summary_tag = soup_nota.find("h2", class_="news-headline__article-summary")
-        summary = summary_tag.get_text() if summary_tag else "No encontrado"
-
-        article_body_tag = None
-        article_body_tags = soup_nota.find_all("article", class_="article-body")
-
-        article_body = "No encontrado"
-        if article_body_tags:
-            article_body = " ".join([tag.get_text() for tag in article_body_tags])
-
-        noticias.append(
-            {
+            return {
                 "fecha": parse_fecha(fecha),
                 "titulo": clean_text(titulo),
                 "resumen": clean_text(summary),
@@ -141,20 +117,57 @@ for index in range(1, 1000):
                 "url": url_nota,
                 "seccion": SECCION,
             }
-        )
-        urls_guardadas.add(url_nota)
-        print(f"Guardada la noticia: {url_nota}")
+    except Exception as e:
+        print(f"Error en {url_nota}: {e}")
+        return None
 
-    if noticias:
-        pd.DataFrame(noticias).to_parquet(
-            parquet_file,
-            index=False,
-            engine="fastparquet",
-            append=True,
-        )
 
-        print("=" * 40)
-        print(f"Página: {index}, fecha: {noticias[0]['fecha']}")
-        print(f"Noticias nuevas: {len(noticias)}")
-        print(f"Total acumulado: {len(urls_guardadas)}")
-        print("=" * 40)
+# --- Main ---
+async def main():
+    async with aiohttp.ClientSession() as session:
+        for index in range(300, 1000):
+            url = f"https://www.ambito.com/{SECCION}/{index}"
+            resp = await session.get(url, headers=headers)
+            if resp.status != 200:
+                print(f"Error {resp.status} en la página {url}")
+                continue
+
+            html = await resp.text()
+            soup = BeautifulSoup(html, "html.parser")
+            articulos = soup.find_all("article", class_="news-article")
+
+            # Juntar todas las URLs nuevas
+            urls_nuevas = []
+            for art in articulos:
+                a_tag = art.find("a", href=True)
+                if not a_tag:
+                    continue
+                url_nota = a_tag["href"]
+                if url_nota not in urls_guardadas:
+                    urls_nuevas.append(url_nota)
+                    urls_guardadas.add(url_nota)
+
+            # Pedir todas las noticias en paralelo
+            tasks = [fetch_noticia(session, url) for url in urls_nuevas]
+            resultados = await asyncio.gather(*tasks)
+
+            noticias = [r for r in resultados if r is not None]
+            if noticias:
+                pd.DataFrame(noticias).to_parquet(
+                    parquet_file,
+                    index=False,
+                    engine="fastparquet",
+                    append=True,
+                )
+                print(
+                    f"Página {index} -> {len(noticias)} noticias nuevas - Fecha: {noticias[0]['fecha']} - Total: {len(urls_guardadas)}"
+                )
+                if noticias[0]["fecha"] < pd.to_datetime("2025-01-01"):
+                    print("Noticias anteriores a 2025, deteniendo el scrapping.")
+                    break
+            else:
+                print(f"Página {index} -> 0 noticias nuevas")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
