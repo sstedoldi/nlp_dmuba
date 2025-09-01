@@ -7,7 +7,7 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
-SECCION = "politica"
+SECCION = "opinion"
 
 
 # --- Helpers ---
@@ -125,7 +125,7 @@ async def fetch_noticia(session, url_nota):
 # --- Main ---
 async def main():
     async with aiohttp.ClientSession() as session:
-        for index in range(300, 1000):
+        for index in range(1, 1000):
             url = f"https://www.ambito.com/{SECCION}/{index}"
             resp = await session.get(url, headers=headers)
             if resp.status != 200:
