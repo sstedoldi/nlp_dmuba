@@ -1,3 +1,8 @@
+Perfecto 🚀 Te propongo una versión mejorada y más ordenada del **README.md**, con un **Quick Start** al inicio (para que cualquiera pueda correr el proyecto rápido), una narrativa más clara y un formato profesional.
+
+---
+
+````markdown
 # Proyecto Final de NLP / Text Mining  
 **Maestría en Data Mining – UBA**
 
@@ -5,94 +10,134 @@
 
 ## Tema: LLM-based Feature Engineering
 
-Este trabajo práctico final se centra en explorar el uso de **Large Language Models (LLMs)** como herramienta para la generación de *features* a partir de textos. El objetivo es evaluar cómo estas representaciones enriquecidas impactan en modelos predictivos tradicionales, con énfasis en forecasting de variables macroeconómicas (ej. EMAE, inflación).  
+Este trabajo práctico final explora el uso de **Large Language Models (LLMs)** como herramienta para la generación de *features* a partir de textos periodísticos. El objetivo es evaluar cómo estas representaciones enriquecidas impactan en modelos predictivos tradicionales, con énfasis en el **forecasting de variables macroeconómicas** (ej. EMAE, inflación).  
 
 ---
 
-## Objetivos
+## 🚀 Quick Start
 
-- Diseñar un pipeline completo para la recolección y preprocesamiento de noticias de medios digitales.
-- Periodo de tiempo: 2025-01 a 2025-04
-- Fuentes: ambito (Tomas), clarin (Ian), pagina12 (Euge), infobae (Leo), lanacion (Santi), argentina.gob
-- Campos a scrapper: {Fecha, Titulo, Seccion, Diario, Contenido}  
-- Aplicar LLMs para extraer *features* de alto nivel (sentimiento, embeddings, clasificaciones contextuales).  
-- Integrar dichas *features* en modelos de predicción y compararlas frente a un baseline sin información de LLMs.  
-- Evaluar la eficiencia y trade-offs entre el uso de **LLMs en la nube (GPT-4o mini / GPT-5 nano)**.  
-- Analizar la escalabilidad mediante procesamiento asincrónico.  
+1. Clonar el repositorio:
+   ```bash
+   git clone <URL_DEL_REPO>
+   cd <NOMBRE_DEL_REPO>
+````
+
+2. Crear entorno virtual en **Python 3.10**:
+
+   ```bash
+   python3.10 -m venv .venv
+   source .venv/bin/activate   # Linux/Mac
+   .venv\Scripts\activate      # Windows
+   ```
+
+3. Instalar dependencias:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+---
+
+## 🎯 Objetivos
+
+* Diseñar un **pipeline completo** para la recolección y preprocesamiento de noticias de medios digitales.
+* **Periodo de análisis:** 2025-01 a 2025-04.
+* **Fuentes:** Ámbito (Tomás), Clarín (Ian), Página/12 (Euge), Infobae (Leo), La Nación (Santi), Argentina.gob.
+* **Campos a scrapear:** `{Fecha, Título, Sección, Diario, Contenido}`.
+* Aplicar LLMs para extraer *features* de alto nivel (**sentimiento, embeddings, clasificaciones contextuales**).
+* Integrar dichas *features* en modelos de predicción y compararlas frente a un baseline sin LLMs.
+* Evaluar **eficiencia y trade-offs** entre LLMs en la nube (GPT-4o mini / GPT-5 nano) y modelos locales (\~3B).
+* Analizar **escalabilidad mediante procesamiento asincrónico**.
 
 ---
 
-## Metodología
+## 🛠️ Metodología
 
-1. **Definición de la fuente de datos**  
-   - Selección de diarios nacionales e internacionales.  
-   - Determinación de secciones relevantes (principalmente economía y política).  
-   - Delimitación del período temporal a analizar.  
+1. **Definición de la fuente de datos**
 
-2. **Ingesta y construcción del dataset**  
-   - Implementación de scraping automatizado para obtener el top-10 de noticias diarias por fuente.  
-   - Limpieza de texto, normalización y almacenamiento estructurado.  
-   - Creación de un dataset con variables base (fuente, sección, fecha, texto). 
+   * Selección de diarios nacionales.
+   * Determinación de secciones relevantes (economía y política).
+   * Delimitación del período temporal.
 
-   Links útiles:
-   https://servicios.lanacion.com.ar/herramientas/rss/ayuda
-   https://hernanescu.github.io/2019/01/scraping-media/
+2. **Ingesta y construcción del dataset**
 
-3. **LLM-based Feature Engineering**  
-   - **Prompt Engineering:** diseño de instrucciones para evaluar sentimiento y relevancia.  
-   - **Clasificación y escalado:** outputs binarios (positivo/negativo) y escalas (1 a 10).  
-   - **Embeddings contextuales:** generación de representaciones vectoriales con LLMs.  
-   - **Procesamiento asincrónico:** optimización de requests para reducir tiempo y costo.  
+   * Scraping automatizado para obtener el *top-10* de noticias diarias por fuente.
+   * Limpieza, normalización y almacenamiento en formato estructurado (Parquet).
+   * Dataset base con variables `{fuente, sección, fecha, texto}`.
 
-4. **Modelado predictivo**  
-   - Entrenamiento de modelos de forecasting económico (ej. regresión, ARIMA, XGBoost).  
-   - Comparación con un baseline sin features de LLMs.
-   - Comparación de la predicciones: Modelo baseline vs. Modelo + LLMs features vs. LLM predict  
-   - Evaluación de impacto en métricas predictivas.  
+   Recursos:
 
----
+   * [RSS La Nación](https://servicios.lanacion.com.ar/herramientas/rss/ayuda)
+   * [Scraping ejemplos](https://hernanescu.github.io/2019/01/scraping-media/)
 
-## Etapas de Desarrollo
+3. **LLM-based Feature Engineering**
 
-- **A. Fuente de datos:** definición de diarios, secciones y periodo de análisis.  
-- **B. Pipeline de ingesta:** scraping, limpieza y creación del dataset.  
-- **C. LLM-based Feature Engineering:** prompts, embeddings y extracción de señales semánticas.  
-- **D. Procesamiento asincrónico:** requests paralelos a APIs / modelos locales.  
-- **E. Modelado:** baseline vs modelos con features de LLM.  
-- **F. Evaluación comparativa:** resultados, impacto y trade-offs.  
+   * **Prompt Engineering:** diseño de instrucciones para sentimiento y relevancia.
+   * **Clasificación:** outputs binarios y escalas (1 a 10).
+   * **Embeddings contextuales:** representaciones vectoriales con LLMs.
+   * **Procesamiento asincrónico:** reducción de tiempo/costo con *requests* paralelos.
+
+4. **Modelado predictivo**
+
+   * Entrenamiento de modelos de forecasting económico (Regresión, ARIMA, XGBoost).
+   * Comparación entre:
+
+     * Baseline (sin features de LLMs)
+     * Modelo + Features LLM
+     * LLM predict directo
+   * Evaluación de impacto en métricas predictivas.
 
 ---
 
-## Integrantes del Grupo 4
+## 📌 Etapas de Desarrollo
 
-- Eugenio Negrin  
-- Ian Link  
-- Santiago Tedoldi  
-- Tomás Elsesser  
-- Leopoldo Serpa
-
-## Hitos
-
-- PPT + Dataset (10/9/2025)
+* **A. Fuente de datos** → definición de diarios, secciones y periodo.
+* **B. Pipeline de ingesta** → scraping, limpieza y dataset.
+* **C. Feature Engineering con LLMs** → prompts, embeddings, señales semánticas.
+* **D. Procesamiento asincrónico** → requests paralelos a APIs/modelos locales.
+* **E. Modelado** → baseline vs modelos con features de LLM.
+* **F. Evaluación comparativa** → resultados, impacto y trade-offs.
 
 ---
 
-## Tecnologías y Herramientas
+## 👥 Integrantes – Grupo 4
 
-- **Lenguajes:** Python  
-- **Librerías:** Scrapy, Pandas, Scikit-learn, AsyncIO, Transformers  
-- **LLMs:** GPT-4o mini, GPT-5 nano, modelos locales (~3B)  
-- **Infraestructura:** GPU Laptop, APIs OpenAI  
+* Eugenio Negrin
+* Ian Link
+* Santiago Tedoldi
+* Tomás Elsesser
+* Leopoldo Serpa
 
 ---
 
-## Resultados esperados
+## 📅 Hitos
 
-- Dataset curado de noticias con *features* derivadas de LLMs.  
-- Evaluación cuantitativa del valor agregado de dichas *features* en modelos macroeconómicos.  
-- Benchmark detallado entre **LLMs cloud** y **modelos locales**.  
-- Documento final con conclusiones metodológicas y técnicas sobre **LLM-based feature engineering**.  
+* **10/09/2025** → Entrega de **PPT + Dataset**.
 
+---
+
+## ⚙️ Tecnologías y Herramientas
+
+* **Lenguaje:** Python 3.10
+* **Librerías:** Scrapy, Pandas, Scikit-learn, AsyncIO, Transformers
+* **LLMs:** GPT-4o mini, GPT-5 nano, modelos locales (\~3B)
+* **Infraestructura:** GPU Laptop + APIs OpenAI
+
+---
+
+## 📊 Resultados esperados
+
+* Dataset curado de noticias con *features* derivadas de LLMs.
+* Evaluación cuantitativa del valor agregado en modelos macroeconómicos.
+* Benchmark detallado entre **LLMs en la nube** y **modelos locales**.
+* Documento final con conclusiones metodológicas y técnicas sobre **LLM-based Feature Engineering**.
+
+```
+
+---
+
+¿Querés que también arme un **diagrama simple en Markdown/mermaid** con el pipeline (Scraping → Preprocesamiento → LLM Features → Modelado → Evaluación)?
+```
 
 
 
