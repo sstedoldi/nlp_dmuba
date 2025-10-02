@@ -1,0 +1,18 @@
+Próximos pasos.
+
+1- Unificar las fuentes de datos ---> fecha|diario|titulo|noticia|seccion (clarin,pagina12,ambito,la nación). [Ian]
+
+2- Normalizar la información. [Leo]
+
+3- buscar con similaridad de coseno noticias iguales y quedarse con una sola ???? (POR AHORA NO).
+
+4- Llamadas a la API e indicadores ----> preguntas nuestras + que encuentre chatgpt + preguntas que se nos ocurren*1. [Tomás]
+
+5- Ir probando modelos clásicos con datos económicos. [Eugenio]
+
+-----> *1Lista de preguntas -> Todos (10 nosotros y 10 chatgpt). Con preguntas binarias, numéricas (Ej:Escalas o precios).
+- Dado el precio de cierre del dia anterior, y las noticias de hoy, que precio va a cerrar mañana?
+- Indicador de sentimiento.
+- Tendencia alcisita o bajista?
+- Dicha tendencia es fuerte, moderada o baja?
+- 
