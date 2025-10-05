@@ -21,7 +21,7 @@ Este trabajo práctico final explora el uso de **Large Language Models (LLMs)** 
 
    ```bash
    python3.10 -m venv .venv
-   source .venv/bin/activate   # Linux/Mac
+      # Linux/Mac
    .venv\Scripts\activate      # Windows
    ```
 
