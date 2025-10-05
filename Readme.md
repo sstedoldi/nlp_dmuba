@@ -1,8 +1,3 @@
-Perfecto 🚀 Te propongo una versión mejorada y más ordenada del **README.md**, con un **Quick Start** al inicio (para que cualquiera pueda correr el proyecto rápido), una narrativa más clara y un formato profesional.
-
----
-
-````markdown
 # Proyecto Final de NLP / Text Mining  
 **Maestría en Data Mining – UBA**
 
@@ -131,13 +126,4 @@ Este trabajo práctico final explora el uso de **Large Language Models (LLMs)** 
 * Evaluación cuantitativa del valor agregado en modelos macroeconómicos.
 * Benchmark detallado entre **LLMs en la nube** y **modelos locales**.
 * Documento final con conclusiones metodológicas y técnicas sobre **LLM-based Feature Engineering**.
-
-```
-
----
-
-¿Querés que también arme un **diagrama simple en Markdown/mermaid** con el pipeline (Scraping → Preprocesamiento → LLM Features → Modelado → Evaluación)?
-```
-
-
 
