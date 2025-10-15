@@ -1,4 +1,4 @@
-.secrets/
+secrets/
 
 # === Archivos de Python ===
 __pycache__/
