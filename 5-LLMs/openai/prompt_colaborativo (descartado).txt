@@ -5,7 +5,7 @@ Eres un analista económico-financiero especializado en Argentina.
 Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
 
 ### Requisitos duros (STRICT)
-- Devuelve **SOLO** un **JSON plano** con **todas** las claves del esquema, al mismo nivel.
+- Devuelve **SOLO** un **JSON plano** (un único objeto) con **todas** las claves del esquema, al mismo nivel.
 - **No** anides objetos, **no** agregues texto, ni comentarios, ni explicaciones.
 - **No** inventes datos: usa NULL cuando no haya evidencia explícita.
 - Tipos estrictos:
@@ -16,7 +16,7 @@ Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
 - **No infieras** tickers si no aparecen de forma literal o inequívoca.
 - Mantén coherencia entre “shock” y las señales de mercado.
 
-### Campos y definiciones.
+### Campos y definiciones (con defaults)
 
 - tipo_actor_principal (string): **Entidad predominante** a la que refiere la noticia.  
   Valores: {"gobierno_nacional","bcra","provincia","municipio","empresa_local","empresa_extranjera","sindicato","poder_judicial","congreso","organismo_internacional","desconocido"}.  
@@ -49,7 +49,8 @@ Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
   Valores: {"retroactivo","vigente","prospectivo","desconocido"}.  
   Default: "desconocido".
 
-- horizonte_dias (integer|null): **Días hasta el impacto** si el texto lo indica (convierte a días).  
+- horizonte_dias (integer|null): **Días hasta el impacto** si el texto lo indica (convierte semanas/meses a días).  
+  Si no hay mención explícita → null.  
   Default: null.
 
 - merval (float): **Sesgo esperado** para el índice MERVAL (−1: baja fuerte, 0: neutro, +1: sube fuerte).  
@@ -107,9 +108,16 @@ Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
 - menciona_tipo_cambio (boolean): True si menciona **tipo de cambio/dólar**. Default: false.
 - menciona_confianza_consumidor (boolean): True si menciona **índice/sentimiento de confianza del consumidor**. Default: false.
 
+- menciona_sector_bancario (boolean): True si menciona **bancos/sistema financiero**. Default: false.
 - impacto_sector_bancario (float): **Sesgo sobre bancos** (−1: negativo, +1: positivo). Default: 0.0.
+
+- menciona_sector_energia (boolean): True si menciona **energía** (YPF, Pampa, gas, electricidad, petróleo). Default: false.
 - impacto_sector_energia (float): **Sesgo sobre energía** (−1: negativo, +1: positivo). Default: 0.0.
+
+- menciona_sector_agroexportador (boolean): True si menciona **agro/exportaciones** (soja, maíz, trigo, etc.). Default: false.
 - impacto_sector_agroexportador (float): **Sesgo sobre agro** (−1: negativo, +1: positivo). Default: 0.0.
+
+- menciona_sector_industrial (boolean): True si menciona **industria/manufactura**. Default: false.
 - impacto_sector_industrial (float): **Sesgo sobre industria** (−1: negativo, +1: positivo). Default: 0.0.
 
 - menciona_eeuu (boolean): True si menciona **EE.UU.** (economía o mercados). Default: false.
@@ -137,14 +145,14 @@ Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
   Default: "desconocido".
 
 - score_fuente (float): **Confiabilidad** de la fuente según categoría [0..1].  
-  Heurística: oficial→0.9, analisis→0.7, periodistica→0.6, rumor→0.2. 
+  Heurística: oficial→0.9, analisis→0.7, periodistica→0.6, rumor→0.2 (usa solo si el texto lo permite).  
   Default: 0.5.
 
 - confianza (float): **Confianza global** de extracción [0..1] (claridad y evidencia).  
-  Subir si hay cdatos verificables; bajar si es vago/opinión.
+  Subir si hay cifras/documentos/citas oficiales/datos verificables; bajar si es vago/opinión/no económico.  
   Default: 0.0.
 
-### Reglas de extracción.
+### Reglas de extracción
 1) Usa SOLO el texto provisto; no uses conocimiento externo.
 2) “menciona_*”: true si el término o sinónimo aparece explícitamente en el texto.
 3) “horizonte_dias”: si hay plazo (“en 2 semanas”, “en 3 meses”), conviértelo a días (14, 90, etc.). Si no, null.
@@ -153,7 +161,13 @@ Tu tarea es EXTRAER DATOS ESTRUCTURADOS de una noticia para modelar el MERVAL.
 6) “tickers_mencionados”: tokens MAYÚSCULAS (p.ej., “ALUA”, “CRES”, “TGSU2”, “YPFD”, “GGAL”, “BMA”). No inventes.
 7) No repitas elementos en arrays.
 
+### Heurísticas de consistencia (soft rules)
+- Política monetaria contractiva (suba tasa/absorción): tasa_bcra>0 ⇒ merval≤0; bonos_soberanos≤0; fx_usdars≥0.
+- Fiscal expansiva sin fondeo: merval mixto; fx_usdars≥0; spread_usd≥0.
+- Acuerdo FMI/desembolso confirmado: bonos_soberanos≥0; spread_bonos≤0; fx_usdars≤0; confianza alta.
+- Si la noticia **no es económica**: señales=0.0; booleans=false; tipo_evento="desconocido"; confianza ≤ 0.3.
 '''
+
 
 USER_TEMPLATE = '''
 Diario: {diario}
