@@ -34,7 +34,6 @@ build/
 # === Archivos de configuración local ===
 *.ini
 *.cfg
-*.json
 *.yaml
 *.yml
 

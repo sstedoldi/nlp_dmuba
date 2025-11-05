@@ -1,0 +1,228 @@
+0
+fecha
+horizonte_dias
+merval
+volatilidad_merval
+fx_usdars
+spread_usd
+tasa_bcra
+bonos_soberanos
+spread_bonos
+actividad_economica
+volumen_mercado
+valencia_general
+gobernanza
+expectativa_macro_corto
+expectativa_macro_largo
+expectativa_fin_corto
+expectativa_fin_largo
+menciona_inflacion
+menciona_pbi
+menciona_reservas
+menciona_embi
+menciona_deuda
+menciona_fmi
+menciona_salarios_paritarias
+menciona_tipo_cambio
+menciona_confianza_consumidor
+menciona_sector_bancario
+impacto_sector_bancario
+menciona_sector_energia
+impacto_sector_energia
+menciona_sector_agroexportador
+impacto_sector_agroexportador
+menciona_sector_industrial
+impacto_sector_industrial
+menciona_eeuu
+impacto_eeuu
+menciona_brasil
+impacto_brasil
+menciona_mercosur
+impacto_mercosur
+menciona_prestamos_internacionales
+impacto_prestamos_internacionales
+impacto_fmi
+menciona_commodities
+impacto_commodities
+menciona_bolsa_extranjera
+impacto_bolsa_extranjera
+categoria_fuente
+score_fuente
+confianza
+fx_usd
+emp_banco nacion
+emp_binance
+emp_bitso
+emp_lemon
+emp_ypf
+emp_banco central de la republica argentina bcra
+emp_jp morgan
+emp_mercado libre
+emp_bbc
+emp_la nacion
+emp_edenor
+emp_mercado pago
+emp_banco macro
+emp_bbva
+emp_ambito financiero
+emp_coinbase
+emp_tether
+emp_aerolineas argentinas
+emp_pampa energia
+emp_uala
+emp_banco galicia
+emp_loma negra
+emp_sa la nacion
+emp_bank of america
+emp_naranja x
+emp_tesla
+emp_nvidia
+emp_metrogas
+emp_banco provincia
+emp_banco supervielle
+emp_indec
+emp_lcg
+emp_personal pay
+emp_microsoft
+emp_outlier
+emp_transportadora de gas del sur
+emp_globant
+emp_clarin
+emp_transener
+emp_deepseek
+emp_openai
+emp_central puerto
+emp_amazon
+emp_banco central de la republica argentina
+emp_visa
+emp_goldman sachs
+emp_aluar
+emp_grupo financiero galicia
+emp_ripio
+emp_apple
+empresa_otras
+act_javier_milei
+act_desconocido
+act_banco_central_de_la_republica_argentina_bcra
+act_gobierno_nacional
+act_donald_trump
+act_administracion_nacional_de_la_seguridad_social_anses
+act_luis_caputo
+act_fondo_monetario_internacional_fmi
+act_gobierno
+act_indec
+act_banco_nacion
+act_lemon
+act_ministerio_de_economia
+act_axel_kicillof
+act_patricia_bullrich
+act_jorge_macri
+act_control_aduanero_arca
+act_agencia_de_recaudacion
+act_gobierno_de_milei
+act_camara_de_diputados
+act_guillermo_francos
+act_gobierno_de_la_ciudad_de_buenos_aires
+act_mauricio_macri
+act_casa_rosada
+act_cristina_fernandez_de_kirchner
+act_ypf
+act_federico_sturzenegger
+act_banco_provincia
+act_manuel_adorni
+act_cgt
+act_mercado_agroganadero_de_canuelas
+act_victoria_villarruel
+act_mercado_pago
+act_presidente_javier_milei
+act_estados_unidos
+act_pro
+act_corte_suprema
+act_cat_cafe_buenos_aires
+act_reserva_federal_eeuu
+act_gobierno_de_trump
+act_la_libertad_avanza
+act_poder_ejecutivo
+act_ministerio_de_economia_luis_caputo
+act_karina_milei
+act_senado
+act_billeteras_virtuales
+act_censos_indec
+act_arca
+act_ministerio_de_capital_humano
+act_secretaria_de_energia
+actor_principal_sin_top
+ticker_AL30
+ticker_BTC
+ticker_LIBRA
+ticker_ETH
+ticker_SOL
+ticker_BNB
+ticker_ADA
+ticker_AVAX
+ticker_LINK
+ticker_AL30D
+sector_Agropecuario
+sector_Comercio / Consumo
+sector_Construcción / Inmobiliario
+sector_Cripto / Fintech
+sector_Educación
+sector_Empleo / Laboral
+sector_Energía
+sector_Finanzas
+sector_Gobierno / Sector Público
+sector_Industria / Manufactura
+sector_Infraestructura
+sector_Justicia
+sector_Medio Ambiente
+sector_Minería
+sector_Otros
+sector_Política
+sector_Salud
+sector_Seguridad
+sector_Servicios
+sector_Tecnología
+sector_Transporte / Logística
+sector_Turismo
+tipo_actor_principal_gobierno_nacional
+tipo_actor_principal_empresa_extranjera
+tipo_actor_principal_empresa_local
+tipo_actor_principal_desconocido
+tipo_actor_principal_provincia
+tipo_actor_principal_sindicato
+tipo_actor_principal_poder_judicial
+tipo_actor_principal_municipio
+tipo_actor_principal_congreso
+tipo_actor_principal_organismo_internacional
+tipo_actor_principal_bcra
+tipo_actor_principal_externo
+caracter_prospectivo
+caracter_desconocido
+caracter_retroactivo
+caracter_vigente
+shock_positivo
+shock_desconocido
+shock_negativo
+shock_mixto
+shock_neutro
+tipo_evento_fiscal
+tipo_evento_externo
+tipo_evento_desconocido
+tipo_evento_otro
+tipo_evento_monetario
+tipo_evento_corporativo
+tipo_evento_judicial
+tipo_evento_regulatorio
+tipo_evento_sindical_social
+tipo_evento_electoral
+tipo_evento_analisis
+tipo_evento_regulatory
+cant_empresas
+cant_tickers
+cant_sectores
+palabras_titulo
+palabras_noticia
+diario_Ámbito Financiero
+diario_Clarín
+diario_La Nación
+diario_Pagina 12
