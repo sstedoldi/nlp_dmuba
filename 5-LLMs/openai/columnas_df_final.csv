@@ -1,0 +1,148 @@
+0
+fecha
+horizonte_dias
+merval
+volatilidad_merval
+fx_usdars
+spread_usd
+tasa_bcra
+bonos_soberanos
+spread_bonos
+actividad_economica
+volumen_mercado
+valencia_general
+gobernanza
+expectativa_macro_corto
+expectativa_macro_largo
+expectativa_fin_corto
+expectativa_fin_largo
+menciona_inflacion
+menciona_pbi
+menciona_reservas
+menciona_embi
+menciona_deuda
+menciona_fmi
+menciona_salarios_paritarias
+menciona_tipo_cambio
+menciona_confianza_consumidor
+menciona_sector_bancario
+impacto_sector_bancario
+menciona_sector_energia
+impacto_sector_energia
+menciona_sector_agroexportador
+impacto_sector_agroexportador
+menciona_sector_industrial
+impacto_sector_industrial
+menciona_eeuu
+impacto_eeuu
+menciona_brasil
+impacto_brasil
+menciona_mercosur
+impacto_mercosur
+menciona_prestamos_internacionales
+impacto_prestamos_internacionales
+impacto_fmi
+menciona_commodities
+impacto_commodities
+menciona_bolsa_extranjera
+impacto_bolsa_extranjera
+score_fuente
+confianza
+fx_usd
+emp_banco nacion
+emp_binance
+emp_bitso
+emp_lemon
+emp_ypf
+emp_banco central de la republica argentina bcra
+emp_jp morgan
+emp_mercado libre
+emp_bbc
+emp_la nacion
+act_javier_milei
+act_desconocido
+act_banco_central_de_la_republica_argentina_bcra
+act_gobierno_nacional
+act_administracion_de_donald_trump
+act_anses_administracion_nacional_de_seguridad_social
+act_luis_caputo
+act_fondo_monetario_internacional_directorio
+act_gobierno
+act_indec
+ticker_AL30
+ticker_BTC
+ticker_LIBRA
+ticker_ETH
+ticker_SOL
+ticker_BNB
+ticker_ADA
+ticker_AVAX
+ticker_AL30D
+ticker_LINK
+sector_Agropecuario
+sector_Comercio / Consumo
+sector_Construcción / Inmobiliario
+sector_Cripto / Fintech
+sector_Educación
+sector_Empleo / Laboral
+sector_Energía
+sector_Finanzas
+sector_Gobierno / Sector Público
+sector_Industria / Manufactura
+sector_Infraestructura
+sector_Justicia
+sector_Medio Ambiente
+sector_Minería
+sector_Otros
+sector_Política
+sector_Salud
+sector_Seguridad
+sector_Servicios
+sector_Tecnología
+sector_Transporte / Logística
+sector_Turismo
+tipo_actor_principal_gobierno_nacional
+tipo_actor_principal_empresa_extranjera
+tipo_actor_principal_empresa_local
+tipo_actor_principal_desconocido
+tipo_actor_principal_provincia
+tipo_actor_principal_sindicato
+tipo_actor_principal_poder_judicial
+tipo_actor_principal_municipio
+tipo_actor_principal_congreso
+tipo_actor_principal_organismo_internacional
+tipo_actor_principal_bcra
+tipo_actor_principal_externo
+caracter_prospectivo
+caracter_desconocido
+caracter_retroactivo
+caracter_vigente
+shock_positivo
+shock_desconocido
+shock_negativo
+shock_mixto
+shock_neutro
+tipo_evento_fiscal
+tipo_evento_externo
+tipo_evento_desconocido
+tipo_evento_otro
+tipo_evento_monetario
+tipo_evento_corporativo
+tipo_evento_judicial
+tipo_evento_regulatorio
+tipo_evento_sindical_social
+tipo_evento_electoral
+tipo_evento_analisis
+tipo_evento_regulatory
+cant_empresas
+cant_tickers
+cant_sectores
+palabras_titulo
+palabras_noticia
+diario_Ámbito Financiero
+diario_Clarín
+diario_La Nación
+diario_Pagina 12
+categoria_fuente_periodistica
+categoria_fuente_analisis
+categoria_fuente_oficial

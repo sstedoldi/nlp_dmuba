@@ -1,0 +1,1 @@
+{"id": "batch_req_68fabc291cc48190a28d20e01689ba55", "custom_id": "row_0", "response": {"status_code": 400, "request_id": "1014fe6a41ce315e9505ade2ce0a7caf", "body": {"error": {"message": "Unsupported parameter: 'temperature' is not supported with this model.", "type": "invalid_request_error", "param": "temperature", "code": null}}}, "error": null}
