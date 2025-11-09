@@ -1,4 +1,4 @@
-.secrets/
+secrets/
 
 # === Archivos de Python ===
 __pycache__/
@@ -34,7 +34,6 @@ build/
 # === Archivos de configuración local ===
 *.ini
 *.cfg
-*.json
 *.yaml
 *.yml
 
