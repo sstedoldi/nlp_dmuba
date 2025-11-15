@@ -1,6 +1,6 @@
 
 # Feature Selection Report
-Fecha: 2025-11-13 20:14:35
+Fecha: 2025-11-15 17:41:45
 
 - Input: `dataset_pre_modelo.csv`
 - Filtrado C1 (missing > 1.00%): 8
