@@ -1,11 +1,22 @@
 
-Modelos v1: trataban de predecir merval_apertura (sin el shift por lo que en realidad esta mal) y usando el dataset limpio de variables economicas que armo Ian
+1. lightgbm, random_forest, lstm: 
+    dataset_v2_fs_top60_+2.csv
+    Sin feature selection adicional
+    Mismos modelos que los mejores de ST pero ajustados para tragbajar con 4 meses en lugar de + de 2 años
 
-Modelos v2: precedir preciio de apertura en t+2 usando las variables de dataset_v2_fs_top60_+2.csv.
-            Es lo mismo que el modelo v4 de series temporales pero usando solo los 4 meses de text mining.
-            Resultado: funciona bastante mal por problema de dimensionalidad (mismas features que filas)
+2. lightgbm_llm, random_forest, lstm_llm:
+    dataset_llm_fs_top60_+2.csv
+    Sin feature selection adicional
+    Mismos modelos que los de 1. pero cambiando el dataset
+    No se hizo ningun ajuste adicional ya que los 2 datasets tienen el mismo periodo y la misma cantidad de features.
 
-Modelos v3: Mismo dataset que los modelos v2 pero agregando un feature selection para reducir problema de dimensionalidad
-            Resultado: mejoran pero aun asi modelos lineales mas simples como el Ridge le ganan tanto al RF como al LGBM
+3. lightgbm_fs, random_forest_fs, lstm_fs:
+    dataset_v2_fs_top60_+2.csv
+    Con feature selection (12-15 features) para evitar maldicion de la dimensionalidad
+    Mismos modelos que en 1. pero agregando paso de feature selection antes de la optimizacion
 
-Movelo v4: Seria comparable al modelo v2, no hacemos feature selection por lo que probablemente tenga problemas de dimensionalidad
+4. lightgbm_fs_llm, random_forest_fs_llm, lstm_fs_llm:
+    dataset_llm_fs_top60_+2.csv
+    Con feature selection (12-15 features) para evitar maldicion de la dimensionalidad
+    Mismos modelos que en 2. pero agregando paso de feature selection antes de la optimizacion
+
