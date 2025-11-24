@@ -278,7 +278,7 @@ En un problema de clasificación binaria (positivo/negativo), dado: TP (verdader
 Precision: proporción de predicciones positivas que son correctas.
 
 $$
-\mathrm{Precision} \;=\; \frac{TP}{TP + FP}
+\mathrm{Precision} = \frac{TP}{TP + FP}
 $$
 
 Recall (sensibilidad): proporción de ejemplos positivos reales que se recuperan.
