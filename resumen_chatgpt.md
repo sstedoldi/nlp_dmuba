@@ -35,9 +35,9 @@ Los *embeddings* (vectores densos de baja dimensión) son importantes porque:
 
 ## 4. ¿Qué es un embedding?
 
-Un *embedding* es una función de mapeo de un espacio discreto (p. ej. el vocabulario de tokens) a un espacio vectorial continuo de baja dimensión, típicamente \(\mathbb{R}^d\). Cada token \(w\) se representa como un vector \( \mathbf{v}_w \in \mathbb{R}^d \).
+Un *embedding* es una función de mapeo de un espacio discreto (p. ej. el vocabulario de tokens) a un espacio vectorial continuo de baja dimensión, típicamente $$\mathbb{R}^d$$. Cada token $$w$$ se representa como un vector $$ \mathbf{v}_w \in \mathbb{R}^d $$.
 
-En modelos neuronales, el embedding se implementa como una tabla de parámetros aprendibles \(E \in \mathbb{R}^{|V|\times d}\); el índice del token selecciona una fila de esa tabla [1,7]. Estos vectores pueden ser estáticos (una sola representación por palabra) o contextuales (varían según la oración).
+En modelos neuronales, el embedding se implementa como una tabla de parámetros aprendibles $$E \in \mathbb{R}^{|V|\times d}$$; el índice del token selecciona una fila de esa tabla [1,7]. Estos vectores pueden ser estáticos (una sola representación por palabra) o contextuales (varían según la oración).
 
 ---
 
@@ -86,27 +86,27 @@ En semántica distribucional, cercanía geometría ≈ similitud semántica/func
 
 ## 9. Describa el método Skip-Gram en word2vec
 
-En Skip-Gram (Mikolov et al. 2013) [2], el objetivo es aprender embeddings de palabras maximizando la probabilidad de los contextos dado la palabra central. Dado un corpus tokenizado, para cada posición \(t\) con palabra \(w_t\), se consideran palabras en una ventana \((t-c,\dots,t+c)\) como contextos \(w_{t+j}\).
+En Skip-Gram (Mikolov et al. 2013) [2], el objetivo es aprender embeddings de palabras maximizando la probabilidad de los contextos dado la palabra central. Dado un corpus tokenizado, para cada posición $$t$$ con palabra $$w_t$$, se consideran palabras en una ventana $$(t-c,\dots,t+c)$$ como contextos $$w_{t+j}$$.
 
-Objetivo básico (simplificado) para un par (palabra central \(w\), palabra contexto \(c\)):
+Objetivo básico (simplificado) para un par (palabra central $$w$$, palabra contexto $$c$$):
 
 \```math
 \max_{\theta} \sum_{(w,c)} \log p(c \mid w; \theta)
 \```
 
-Donde \(p(c \mid w)\) se define con una capa softmax sobre el producto escalar de los vectores de palabra y de contexto. En práctica se usa *negative sampling* o *hierarchical softmax* para eficiencia. El entrenamiento produce dos matrices de embeddings; suele usarse la de palabras o la combinación de ambas [2,3].
+Donde $$p(c \mid w)$$ se define con una capa softmax sobre el producto escalar de los vectores de palabra y de contexto. En práctica se usa *negative sampling* o *hierarchical softmax* para eficiencia. El entrenamiento produce dos matrices de embeddings; suele usarse la de palabras o la combinación de ambas [2,3].
 
 ---
 
 ## 10. Describa el método GloVe
 
-GloVe (Global Vectors) [4] es un modelo de embeddings que utiliza conteos de coocurrencia globales (matriz palabra×contexto). Para cada par (palabra \(i\), contexto \(j\)) con conteo \(X_{ij}\), el modelo aprende vectores \(\mathbf{w}_i\), \(\tilde{\mathbf{w}}_j\) y sesgos \(b_i, \tilde{b}_j\) minimizando:
+GloVe (Global Vectors) [4] es un modelo de embeddings que utiliza conteos de coocurrencia globales (matriz palabra×contexto). Para cada par (palabra $$i$$, contexto $$j$$) con conteo $$X_{ij}$$, el modelo aprende vectores $$\mathbf{w}_i$$, $$\tilde{\mathbf{w}}_j$$ y sesgos $$b_i, \tilde{b}_j$$ minimizando:
 
 \```math
 J = \sum_{i,j} f(X_{ij})\big(\mathbf{w}_i^\top \tilde{\mathbf{w}}_j + b_i + \tilde{b}_j - \log X_{ij}\big)^2
 \```
 
-donde \(f(\cdot)\) es una función de ponderación que reduce el peso de coocurrencias muy raras o muy frecuentes. Intuición: los productos escalares de los vectores deben aproximar los log-conteos de coocurrencia. GloVe combina ventajas de modelos basados en conteos y basados en predicción [4].
+donde $$f(\cdot)$$ es una función de ponderación que reduce el peso de coocurrencias muy raras o muy frecuentes. Intuición: los productos escalares de los vectores deben aproximar los log-conteos de coocurrencia. GloVe combina ventajas de modelos basados en conteos y basados en predicción [4].
 
 ---
 
@@ -139,7 +139,7 @@ Un modelo de lenguaje (LM) es un modelo probabilístico que asigna una probabili
 p(w_1, \dots, w_T) = \prod_{t=1}^T p(w_t \mid w_1, \dots, w_{t-1})
 \```
 
-En su forma clásica, un LM n-gram asume una dependencia Markov de orden \(n-1\):
+En su forma clásica, un LM n-gram asume una dependencia Markov de orden $$n-1$$:
 
 \```math
 p(w_t \mid w_1,\dots,w_{t-1}) \approx p(w_t \mid w_{t-n+1}, \dots, w_{t-1})
@@ -151,7 +151,7 @@ En versiones neuronales (RNN, LSTM, Transformer decoder), la historia previa se 
 
 ## 14. ¿Qué es un modelo de lenguaje unidireccional?
 
-Es un LM que condiciona cada token solo en el *pasado* (tokens anteriores), nunca en el futuro. Formalmente: \(p(w_t \mid w_1,\dots,w_{t-1})\).
+Es un LM que condiciona cada token solo en el *pasado* (tokens anteriores), nunca en el futuro. Formalmente: $$p(w_t \mid w_1,\dots,w_{t-1})$$.
 
 Ejemplos:  
 - Modelos n-gram clásicos.  
@@ -174,10 +174,10 @@ Los LLM tipo GPT son modelos de lenguaje generativos; también lo son n-grams si
 
 En un modelo autoregresivo, la generación ocurre iterativamente:
 
-1. Se tiene un *prompt* o contexto inicial \(w_1,\dots,w_k\).  
-2. El modelo estima la distribución \(p(w_{k+1} \mid w_1,\dots,w_k)\).  
+1. Se tiene un *prompt* o contexto inicial $$w_1,\dots,w_k$$.  
+2. El modelo estima la distribución $$p(w_{k+1} \mid w_1,\dots,w_k)$$.  
 3. Se elige un token según una estrategia (argmax, muestreo, top-k, nucleus).  
-4. El token elegido se concatena al contexto, y se repite el proceso para \(w_{k+2}\), etc.  
+4. El token elegido se concatena al contexto, y se repite el proceso para $$w_{k+2}$$, etc.  
 
 Formalmente,
 
@@ -191,7 +191,7 @@ Este esquema es la base de la generación en GPT, LLaMA y otros modelos decoder-
 
 ## 17. ¿Qué es un modelo de lenguaje n-gram?
 
-Es un LM que aproxima la probabilidad de la siguiente palabra usando solo las últimas \(n-1\) palabras como contexto. Por ejemplo, un trigram (\(n=3\)) usa \(p(w_t \mid w_{t-2}, w_{t-1})\). La probabilidad se estima mediante conteos en un corpus y se suaviza (Laplace, Kneser–Ney, etc.) para lidiar con n-grams raros o no observados [1,3].
+Es un LM que aproxima la probabilidad de la siguiente palabra usando solo las últimas $$n-1$$ palabras como contexto. Por ejemplo, un trigram ($$n=3$$) usa $$p(w_t \mid w_{t-2}, w_{t-1})$$. La probabilidad se estima mediante conteos en un corpus y se suaviza (Laplace, Kneser–Ney, etc.) para lidiar con n-grams raros o no observados [1,3].
 
 ---
 
@@ -200,7 +200,7 @@ Es un LM que aproxima la probabilidad de la siguiente palabra usando solo las ú
 Pasos típicos [1,3]:
 
 1. Tokenizar el corpus y definir vocabulario (incluyendo token UNK).  
-2. Contar frecuencias: \(C(w_{t-n+1},\dots,w_{t-1}, w_t)\).  
+2. Contar frecuencias: $$C(w_{t-n+1},\dots,w_{t-1}, w_t)$$.  
 3. Estimar probabilidades máximoverosímiles:  
 
 \```math
@@ -214,8 +214,8 @@ Pasos típicos [1,3]:
 
 ## 19. ¿Cuáles son las principales desventajas de un modelo n-gram?
 
-1. **Contexto corto**: solo mira \(n-1\) palabras, incapaz de capturar dependencias largas.  
-2. **Explosión combinatoria**: número de n-grams crece exponencialmente con \(n\); la mayoría son raros o no aparecen.  
+1. **Contexto corto**: solo mira $$n-1$$ palabras, incapaz de capturar dependencias largas.  
+2. **Explosión combinatoria**: número de n-grams crece exponencialmente con $$n$$; la mayoría son raros o no aparecen.  
 3. **Datos escasos**: incluso con corpus grandes, muchos n-grams plausibles no se observan; requiere smoothing complejo.  
 4. **Memoria y almacenamiento**: tablas de n-grams grandes para vocabularios amplios.  
 5. **Poca capacidad de generalización semántica**: trata palabras como símbolos discretos sin compartir información entre similares [1,3].
@@ -317,7 +317,7 @@ Métricas típicas [1,3,10]:
 
 ## 27. ¿Qué es perplexity?
 
-Dado un conjunto de prueba \(w_1,\dots,w_T\), la log-verosimilitud media del modelo es:
+Dado un conjunto de prueba $$w_1,\dots,w_T$$, la log-verosimilitud media del modelo es:
 
 \```math
 \ell = -\frac{1}{T} \sum_{t=1}^T \log_2 p(w_t \mid w_{<t})
@@ -341,7 +341,7 @@ Los embeddings suelen ser la primera capa de una red neuronal para NLP. Relació
 - Los embeddings se aprenden conjuntamente con el resto de la red (o se inicializan con vectores preentrenados).  
 - Capas superiores (RNN, CNN, Transformer) operan sobre estos vectores, componiendo significado para frases y documentos.  
 
-“Maridan bien” porque los embeddings transforman el problema de símbolos discretos en uno de geometría en \(\mathbb{R}^d\), que es el terreno natural del aprendizaje profundo [1,7].
+“Maridan bien” porque los embeddings transforman el problema de símbolos discretos en uno de geometría en $$\mathbb{R}^d$$, que es el terreno natural del aprendizaje profundo [1,7].
 
 ---
 
@@ -351,8 +351,8 @@ Esquema básico (bolsa de palabras + FFNN):
 
 1. **Representación de entrada**:  
    - Tokenizar el texto.  
-   - Mapear cada token a un embedding \(\mathbf{v}_i\).  
-   - Agregar los vectores (suma o promedio) para obtener una representación del documento \(\mathbf{h}_0\).  
+   - Mapear cada token a un embedding $$\mathbf{v}_i$$.  
+   - Agregar los vectores (suma o promedio) para obtener una representación del documento $$\mathbf{h}_0$$.  
 
 2. **Red feed-forward**:  
    \```math
@@ -361,10 +361,10 @@ Esquema básico (bolsa de palabras + FFNN):
    \```math
    \mathbf{o} = W_2 \mathbf{h}_1 + \mathbf{b}_2
    \```  
-   donde \(\sigma\) es no linealidad (ReLU, tanh).  
+   donde $$\sigma$$ es no linealidad (ReLU, tanh).  
 
 3. **Salida**:  
-   - Softmax sobre \(\mathbf{o}\) para obtener distribución sobre clases (p. ej., *positivo/negativo*).  
+   - Softmax sobre $$\mathbf{o}$$ para obtener distribución sobre clases (p. ej., *positivo/negativo*).  
 
 4. **Entrenamiento**:  
    - Minimizar cross-entropy entre predicción y etiqueta usando SGD/Adam.  
@@ -398,7 +398,7 @@ Son arquitecturas neuronales diseñadas para secuencias, donde el modelo mantien
 \mathbf{h}_t = f(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b})
 \```
 
-El estado \(\mathbf{h}_t\) resume información de la historia pasada; se usa para predicción (p. ej., LM) o para producir una representación de toda la secuencia. Ejemplos: RNN simple, LSTM, GRU [1,8].
+El estado $$\mathbf{h}_t$$ resume información de la historia pasada; se usa para predicción (p. ej., LM) o para producir una representación de toda la secuencia. Ejemplos: RNN simple, LSTM, GRU [1,8].
 
 ---
 
@@ -406,11 +406,11 @@ El estado \(\mathbf{h}_t\) resume información de la historia pasada; se usa par
 
 Para una RNN simple:
 
-- Entrada en el tiempo t: \(\mathbf{x}_t\) (embedding de palabra).  
-- Estado oculto previo: \(\mathbf{h}_{t-1}\).  
-- Transformaciones lineales: matrices \(W_x, W_h\).  
-- No linealidad: \(f\) (tanh, ReLU).  
-- Nuevo estado: \(\mathbf{h}_t = f(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b})\).  
+- Entrada en el tiempo t: $$\mathbf{x}_t$$ (embedding de palabra).  
+- Estado oculto previo: $$\mathbf{h}_{t-1}$$.  
+- Transformaciones lineales: matrices $$W_x, W_h$$.  
+- No linealidad: $$f$$ (tanh, ReLU).  
+- Nuevo estado: $$\mathbf{h}_t = f(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b})$$.  
 
 En LSTM/GRU, la célula incluye puertas (gates) que controlan qué información se olvida, se actualiza o se expone, resolviendo problemas de gradientes a largo plazo [1,8].
 
@@ -418,7 +418,7 @@ En LSTM/GRU, la célula incluye puertas (gates) que controlan qué información 
 
 ## 33. ¿Qué ventajas tienen las redes recurrentes respecto al modelo n-gram en términos del largo de la secuencia?
 
-- Pueden, en principio, modelar dependencias de largo alcance: el estado \(\mathbf{h}_t\) puede contener información de toda la historia pasada, no solo de \(n-1\) tokens.  
+- Pueden, en principio, modelar dependencias de largo alcance: el estado $$\mathbf{h}_t$$ puede contener información de toda la historia pasada, no solo de $$n-1$$ tokens.  
 - No requieren enumerar explícitamente todos los contextos posibles; comparten parámetros entre posiciones y contextos.  
 - Manejan vocabularios grandes usando embeddings.  
 
@@ -428,11 +428,11 @@ En la práctica, RNN simples sufren de gradientes que se desvanecen/explotan; LS
 
 ## 34. Describa las redes LSTM
 
-Las LSTM (Long Short-Term Memory) introducen una célula con memoria interna \(\mathbf{c}_t\) y puertas para controlar el flujo de información [1,8]:
+Las LSTM (Long Short-Term Memory) introducen una célula con memoria interna $$\mathbf{c}_t$$ y puertas para controlar el flujo de información [1,8]:
 
-- **Puerta de olvido** \( \mathbf{f}_t\): decide qué parte de \(\mathbf{c}_{t-1}\) se conserva.  
-- **Puerta de entrada** \( \mathbf{i}_t\): decide cuánto de la nueva información candidata \(\tilde{\mathbf{c}}_t\) se integra.  
-- **Puerta de salida** \( \mathbf{o}_t\): controla cuánto de \(\mathbf{c}_t\) se expone como estado oculto \(\mathbf{h}_t\).  
+- **Puerta de olvido** $$ \mathbf{f}_t$$: decide qué parte de $$\mathbf{c}_{t-1}$$ se conserva.  
+- **Puerta de entrada** $$ \mathbf{i}_t$$: decide cuánto de la nueva información candidata $$\tilde{\mathbf{c}}_t$$ se integra.  
+- **Puerta de salida** $$ \mathbf{o}_t$$: controla cuánto de $$\mathbf{c}_t$$ se expone como estado oculto $$\mathbf{h}_t$$.  
 
 Ecuaciones (simplificadas):
 
@@ -449,7 +449,7 @@ Ecuaciones (simplificadas):
 
 ## 35. ¿Qué ventajas tienen las LSTM?
 
-- Manejan mejor dependencias largas gracias a la memoria explítica \(\mathbf{c}_t\) y las puertas que controlan gradientes.  
+- Manejan mejor dependencias largas gracias a la memoria explítica $$\mathbf{c}_t$$ y las puertas que controlan gradientes.  
 - Reducen problemas de *vanishing gradient* presentes en RNN simples.  
 - Funcionan bien en tareas secuenciales como LM, traducción, etiquetado secuencial, etc.  
 
@@ -457,8 +457,8 @@ Ecuaciones (simplificadas):
 
 ## 36. ¿Cuál es la diferencia entre una red bidireccional y una unidireccional?
 
-- **Unidireccional**: procesa la secuencia en una sola dirección (izquierda→derecha o derecha→izquierda). El estado en \(t\) solo ve el pasado (o solo el futuro).  
-- **Bidireccional**: combina dos redes (p. ej., dos LSTM), una que procesa izquierda→derecha y otra derecha→izquierda; la representación en \(t\) concatena ambos estados.  
+- **Unidireccional**: procesa la secuencia en una sola dirección (izquierda→derecha o derecha→izquierda). El estado en $$t$$ solo ve el pasado (o solo el futuro).  
+- **Bidireccional**: combina dos redes (p. ej., dos LSTM), una que procesa izquierda→derecha y otra derecha→izquierda; la representación en $$t$$ concatena ambos estados.  
 
 Esto permite usar contexto pasado y futuro para representar cada token. Útil en tareas donde toda la secuencia está disponible (tagging, NER, clasificación), pero no directamente para generación autoregresiva [1,8].
 
@@ -553,8 +553,8 @@ En encoders bidireccionales (BERT), cada posición ve tanto pasado como futuro; 
 La atención aprende a ponderar dinámicamente qué partes de la secuencia de entrada son más relevantes para procesar un token dado [1,9]. En self-attention (Transformers):
 
 - Cada token se proyecta a tres vectores: *query* (Q), *key* (K) y *value* (V).  
-- La relevancia entre un token i y j se calcula con el producto escalar \(Q_i K_j^\top\) (escalado y normalizado con softmax).  
-- Los *weights* de atención definen cómo combinar los *values* \(V_j\) para construir una representación contextualizada para i.  
+- La relevancia entre un token i y j se calcula con el producto escalar $$Q_i K_j^\top$$ (escalado y normalizado con softmax).  
+- Los *weights* de atención definen cómo combinar los *values* $$V_j$$ para construir una representación contextualizada para i.  
 
 Intuición: en vez de usar solo vecinos inmediatos o un estado recurrente, el token “pregunta” al resto de la secuencia qué palabras le resultan informativas, y combina sus representaciones proporcionalmente.  
 
@@ -850,7 +850,7 @@ Todo se formula como problema text-to-text; pretraining y fine-tuning para cualq
 Algunos hiperparámetros clave [11]:
 
 - Número de capas (depth), p. ej., 12 (BERT-base), 24 (BERT-large).  
-- Dimensión oculta \(d_\text{model}\) (768, 1024).  
+- Dimensión oculta $$d_\text{model}$$ (768, 1024).  
 - Número de cabezas de atención.  
 - Dimensión de la FFN interna.  
 - Tamaño de vocabulario (WordPiece).  
@@ -864,7 +864,7 @@ Algunos hiperparámetros clave [11]:
 
 Con un objetivo de *next-token prediction* (LM autoregresivo) [1,8,10]:
 
-- Dada una secuencia \(w_1,\dots,w_T\), el modelo maximiza \(\sum_t \log p(w_t \mid w_{<t})\).  
+- Dada una secuencia $$w_1,\dots,w_T$$, el modelo maximiza $$\sum_t \log p(w_t \mid w_{<t})$$.  
 - Se usa atención causal (Transformers) o RNN/LSTM uni-direccional.  
 - Durante entrenamiento, se suele usar *teacher forcing*: el modelo recibe la secuencia completa desplazada y predice el siguiente token.  
 
@@ -988,12 +988,12 @@ Ventajas: eficiencia en parámetros, posibilidad de mantener un solo modelo base
 
 ## 79. ¿Qué es LoRA?
 
-LoRA (*Low-Rank Adaptation*) [6] adapta modelos grandes añadiendo matrices de bajo rango a las matrices de pesos existentes (p. ej., en las proyecciones de atención). En vez de actualizar \(W\) completo, se aprende una descomposición \( \Delta W = A B\) donde \(A,B\) tienen rango bajo.  
+LoRA (*Low-Rank Adaptation*) [6] adapta modelos grandes añadiendo matrices de bajo rango a las matrices de pesos existentes (p. ej., en las proyecciones de atención). En vez de actualizar $$W$$ completo, se aprende una descomposición $$ \Delta W = A B$$ donde $$A,B$$ tienen rango bajo.  
 
 Durante el fine-tuning:  
 
-- \(W\) se mantiene congelado.  
-- Solo se entrenan \(A,B\).  
+- $$W$$ se mantiene congelado.  
+- Solo se entrenan $$A,B$$.  
 
 Esto reduce drásticamente el número de parámetros entrenables y permite almacenar múltiples adaptaciones ligeras sobre el mismo modelo base.  
 
@@ -1220,11 +1220,11 @@ Proceso RLHF típico [12]:
 
 1. Entrenar un modelo base (LM).  
 2. Entrenar un reward model como se describió.  
-3. Inicializar una política \(\pi_\theta\) con el modelo base.  
-4. Usar RL (PPO, Proximal Policy Optimization) para ajustar \(\theta\):  
+3. Inicializar una política $$\pi_\theta$$ con el modelo base.  
+4. Usar RL (PPO, Proximal Policy Optimization) para ajustar $$\theta$$:  
    - Para cada prompt, generar una respuesta con la política actual.  
    - Obtener recompensa del reward model (y penalizaciones p. ej. por desviarse demasiado de la política base).  
-   - Actualizar \(\theta\) para maximizar recompensa bajo restricciones de *KL* con la política base (para no degradar demasiado el LM).  
+   - Actualizar $$\theta$$ para maximizar recompensa bajo restricciones de *KL* con la política base (para no degradar demasiado el LM).  
 
 PPO es un algoritmo de RL que permite actualizar la política de forma estable, limitando cada paso de actualización (clipped objective).  
 
