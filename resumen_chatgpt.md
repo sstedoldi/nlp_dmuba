@@ -185,7 +185,7 @@ En un modelo autoregresivo, la generación ocurre iterativamente:
 Formalmente,
 
 $$
-p(w_1, \dots, w_T) = \prod_{t=1}^T p(w_t \mid w_{<t})
+p(w_1, \dots, w_T) \;=\; \prod_{t=1}^T p\bigl(w_t \mid w_{1:t-1}\bigr)
 $$
 
 Este esquema es la base de la generación en GPT, LLaMA y otros modelos decoder-only [8,10].
@@ -275,23 +275,24 @@ No conviene (o se usa con cuidado) cuando:
 
 En un problema de clasificación binaria (positivo/negativo), dado: TP (verdaderos positivos), FP (falsos positivos), FN (falsos negativos):
 
-* **Precision**: proporción de predicciones positivas que son correctas.
+Precision: proporción de predicciones positivas que son correctas.
 
-  $$
-  \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
-  $$
+$$
+\mathrm{Precision} \;=\; \frac{TP}{TP + FP}
+$$
 
-* **Recall** (sensibilidad): proporción de ejemplos positivos reales que se recuperan.
+Recall (sensibilidad): proporción de ejemplos positivos reales que se recuperan.
 
-  $$
-  \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
-  $$
+$$
+\mathrm{Recall} \;=\; \frac{TP}{TP + FN}
+$$
 
-* **F1**: media armónica entre precision y recall.
+F1: media armónica entre precision y recall.
 
-  $$
-  F_1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-  $$
+$$
+F_1 \;=\; 2 \cdot \frac{\mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{Precision} + \mathrm{Recall}}
+$$
+
 
 En clasificación multi-clase o secuencial (NER), se usan macro/micro promedios [1].
 
@@ -325,17 +326,18 @@ Métricas típicas [1,3,10]:
 
 ## 27. ¿Qué es perplexity?
 
-Dado un conjunto de prueba $$w_1,\dots,w_T$$, la log-verosimilitud media del modelo es:
+Dado un conjunto de prueba \(w_1, \dots, w_T\), la log-verosimilitud media del modelo es:
 
 $$
-\ell = -\frac{1}{T} \sum_{t=1}^T \log_2 p(w_t \mid w_{<t})
+L \;=\; -\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)
 $$
 
-La *perplexity* se define como:
+La perplexity se define como:
 
 $$
-\text{PP} = 2^{\ell} = 2^{-\frac{1}{T} \sum_t \log_2 p(w_t \mid w_{<t})}
+\mathrm{PP} \;=\; 2^{L} \;=\; 2^{-\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)}
 $$
+
 
 Intuitivamente es el inverso de la probabilidad geométrica media de las palabras: un modelo “menos perplejo” (PP baja) asigna mayor probabilidad a los datos reales. Es análogo al tamaño efectivo del conjunto de palabras plausibles en cada paso [1,3].
 
@@ -365,13 +367,13 @@ Esquema básico (bolsa de palabras + FFNN):
 
 2. **Red feed-forward**:
 
-   $$
-   \mathbf{h}_1 = \sigma(W_1 \mathbf{h}_0 + \mathbf{b}_1)
-   $$
+$$
+\mathbf{h}_1 \;=\; \sigma\bigl(W_1 \mathbf{h}_0 + \mathbf{b}_1\bigr)
+$$
 
-   $$
-   \mathbf{o} = W_2 \mathbf{h}_1 + \mathbf{b}_2
-   $$
+$$
+\mathbf{o} \;=\; W_2 \mathbf{h}_1 + \mathbf{b}_2
+$$
 
    donde $$\sigma$$ es no linealidad (ReLU, tanh).
 
@@ -424,7 +426,7 @@ Para una RNN simple:
 * Estado oculto previo: $$\mathbf{h}_{t-1}$$.
 * Transformaciones lineales: matrices $$W_x, W_h$$.
 * No linealidad: $$f$$ (tanh, ReLU).
-* Nuevo estado: $$\mathbf{h}_t = f(W_x \mathbf{x}*t + W_h \mathbf{h}*{t-1} + \mathbf{b})$$.
+* Nuevo estado: $$\mathbf{h}_t \;=\; f\bigl(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b}\bigr)$$.
 
 En LSTM/GRU, la célula incluye puertas (gates) que controlan qué información se olvida, se actualiza o se expone, resolviendo problemas de gradientes a largo plazo [1,8].
 
@@ -1323,14 +1325,26 @@ En pipelines tipo LLaMA 2, *rejection sampling* se usa para seleccionar, entre m
 ## Bibliografía básica
 
 [1] Jurafsky, D., & Martin, J. H. (2024). *Speech and Language Processing* (3rd ed. draft).
+
 [2] Mikolov, T. et al. (2013). *Efficient Estimation of Word Representations in Vector Space*.
+
 [3] Mikolov, T. et al. (2013). *Distributed Representations of Words and Phrases and their Compositionality*.
+
 [4] Pennington, J., Socher, R., & Manning, C. (2014). *GloVe: Global Vectors for Word Representation*.
+
 [5] Peters, M. E. et al. (2018). *Deep contextualized word representations (ELMo)*.
-[6] Houlsby, N. et al. (2019). *Parameter-Efficient Transfer Learning for NLP*; Hu, E. J. et al. (2021). *LoRA*.
+
+[6] Houlsby, N. et al. (2019). *Parameter-Efficient Transfer Learning for NLP*; Hu, E. J. et al. (2021). 
+*LoRA*.
+
 [7] Raffel, C. et al. (2020). *Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer (T5)*.
+
 [8] Sutskever, I. et al. (2014). *Sequence to Sequence Learning with Neural Networks*; Graves (2013) LSTM; Radford et al. (2018–2019) GPT.
+
 [9] Vaswani, A. et al. (2017). *Attention Is All You Need*.
+
 [10] Brown, T. et al. (2020). *Language Models are Few-Shot Learners*; Touvron et al. (2023). *LLaMA / LLaMA 2*.
+
 [11] Devlin, J. et al. (2019). *BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding*.
+
 [12] Ouyang, L. et al. (2022). *Training language models to follow instructions with human feedback*; otros trabajos de RLHF/instruction tuning.
