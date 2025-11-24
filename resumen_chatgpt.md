@@ -185,7 +185,7 @@ En un modelo autoregresivo, la generación ocurre iterativamente:
 Formalmente,
 
 $$
-p(w_1, \dots, w_T) \;=\; \prod_{t=1}^T p\bigl(w_t \mid w_{1:t-1}\bigr)
+p(w_1, \dots, w_T) = \prod_{t=1}^T p\bigl(w_t \mid w_{1:t-1}\bigr)
 $$
 
 Este esquema es la base de la generación en GPT, LLaMA y otros modelos decoder-only [8,10].
@@ -284,13 +284,13 @@ $$
 Recall (sensibilidad): proporción de ejemplos positivos reales que se recuperan.
 
 $$
-\mathrm{Recall} \;=\; \frac{TP}{TP + FN}
+\mathrm{Recall} = \frac{TP}{TP + FN}
 $$
 
 F1: media armónica entre precision y recall.
 
 $$
-F_1 \;=\; 2 \cdot \frac{\mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{Precision} + \mathrm{Recall}}
+F_1 = 2 \cdot \frac{\mathrm{Precision} \cdot \mathrm{Recall}}{\mathrm{Precision} + \mathrm{Recall}}
 $$
 
 
@@ -329,13 +329,13 @@ Métricas típicas [1,3,10]:
 Dado un conjunto de prueba \(w_1, \dots, w_T\), la log-verosimilitud media del modelo es:
 
 $$
-L \;=\; -\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)
+L = -\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)
 $$
 
 La perplexity se define como:
 
 $$
-\mathrm{PP} \;=\; 2^{L} \;=\; 2^{-\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)}
+\mathrm{PP} = 2^{L} = 2^{-\frac{1}{T} \sum_{t=1}^T \log_2 p\bigl(w_t \mid w_{1:t-1}\bigr)}
 $$
 
 
@@ -368,11 +368,11 @@ Esquema básico (bolsa de palabras + FFNN):
 2. **Red feed-forward**:
 
 $$
-\mathbf{h}_1 \;=\; \sigma\bigl(W_1 \mathbf{h}_0 + \mathbf{b}_1\bigr)
+\mathbf{h}_1 = \sigma\bigl(W_1 \mathbf{h}_0 + \mathbf{b}_1\bigr)
 $$
 
 $$
-\mathbf{o} \;=\; W_2 \mathbf{h}_1 + \mathbf{b}_2
+\mathbf{o} = W_2 \mathbf{h}_1 + \mathbf{b}_2
 $$
 
    donde $$\sigma$$ es no linealidad (ReLU, tanh).
@@ -426,7 +426,7 @@ Para una RNN simple:
 * Estado oculto previo: $$\mathbf{h}_{t-1}$$.
 * Transformaciones lineales: matrices $$W_x, W_h$$.
 * No linealidad: $$f$$ (tanh, ReLU).
-* Nuevo estado: $$\mathbf{h}_t \;=\; f\bigl(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b}\bigr)$$.
+* Nuevo estado: $$\mathbf{h}_t = f\bigl(W_x \mathbf{x}_t + W_h \mathbf{h}_{t-1} + \mathbf{b}\bigr)$$.
 
 En LSTM/GRU, la célula incluye puertas (gates) que controlan qué información se olvida, se actualiza o se expone, resolviendo problemas de gradientes a largo plazo [1,8].
 
